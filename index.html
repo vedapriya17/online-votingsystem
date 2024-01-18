@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple voting system</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin: 24px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            border: 2px solid black;
+            border-radius: 10px;
+            background-color: #9045ec;
+            padding: 10px;
+            margin: auto;
+            height: 432px;
+            width: 60%;
+        }
+
+        .parties {
+            /* border: 2px solid black;
+            background-color: rgb(221, 255, 0); */
+            height: 250px;
+            width: 23%;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .partyLogo {
+            border: 2px solid red;
+            display: block;
+            width: 100px;
+            height: 100px;
+            margin: 5px auto;
+            border-radius: 10px;
+        }
+
+        .vote {
+            width: 100%;
+            height: 50px;
+            padding: 5px;
+            border: 2px solid black;
+            background-color: rgb(220, 216, 226);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .vote {
+            width: 100%;
+            height: 50px;
+            padding: 5px;
+            margin: 12px auto;
+            border: 2px solid black;
+            background-color: rgb(205 233 55);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .vote:hover {
+            color: rgb(186, 186, 170);
+        }
+
+        .votes {
+            margin-left: 35px;
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+        }
+
+        #showResult {
+            width: 50%;
+            height: 50px;
+            padding: 5px;
+            margin: auto;
+            border: 2px solid black;
+            background-color: #e6ed0ad1;
+            border-radius: 8px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        #showResult:hover {
+            color: rgb(154, 154, 137);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Simple Voting System</h1>
+    <div class="container">
+        <div class="parties">
+            <img class="partyLogo" src="bjp.logo.png" alt="image is not loaded">
+            <button id="bjpVote" class="vote">Vote</button>
+            <p id="bjpResult" class="votes">Votes: </p>
+        </div>
+        <div class="parties">
+            <img class="partyLogo" src="congress.logo.png" alt="image is not loaded">
+            <button id="congressVote" class="vote">Vote</button>
+            <p id="congressResult" class="votes">Votes: </p>
+        </div>
+        <div class="parties">
+            <img class="partyLogo" src="AIMIM.logo.png" alt="image is not loaded">
+            <button id="aimimVote" class="vote">Vote</button>
+            <p id="aimimResult" class="votes">Votes: </p>
+        </div>
+        <div class="parties">
+            <img class="partyLogo" src="brs.logo.jpg" alt="image is not loaded">
+            <button id="brsVote" class="vote">Vote</button>
+            <p id="brsResult" class="votes">Votes: </p>
+        </div>
+        <button id="showResult">Show Election Result</button>
+    </div>
+    <script>
+        let bjp_votes = 0;
+        let congress_votes = 0;
+        let aimim_votes = 0;
+        let brs_votes = 0;
+        let bjp_result = document.getElementById("bjpResult");
+        let congress_result = document.getElementById("congressResult");
+        let aimim_result = document.getElementById("aimimResult");
+        let brs_result = document.getElementById("brsResult");
+
+        document.getElementById("bjpVote").addEventListener("click", () => {
+            bjp_votes++;
+            bjp_result.innerHTML = "Votes: " + bjp_votes;
+        })
+        document.getElementById("congressVote").addEventListener("click", () => {
+            congress_votes++;
+            congress_result.innerHTML = "Votes: " + congress_votes;
+        })
+        document.getElementById("aimimVote").addEventListener("click", () => {
+            aimim_votes++;
+            aimim_result.innerHTML = "Votes: " + aimim_votes;
+        })
+        document.getElementById("brsVote").addEventListener("click", () => {
+            brs_votes++;
+            brs_result.innerHTML = "Votes: " + brs_votes;
+        })
+
+        document.getElementById("showResult").addEventListener("click", () => {
+            if (bjp_votes > congress_votes && bjp_votes > aimim_votes && bjp_votes > brs_votes) {
+                bjp_result.innerHTML = " BJP won the elections";
+                congress_result.innerHTML = "";
+                aimim_result.innerHTML = "";
+                brs_result.innerHTML = "";
+            } else if (congress_votes > aimim_votes && congress_votes > brs_votes && congress_votes > bjp_votes) {
+                bjp_result.innerHTML = " ";
+                congress_result.innerHTML = " Congress won the elections";
+                aimim_result.innerHTML = " ";
+                brs_result.innerHTML = " ";
+            } else if (aimim_votes > brs_votes && aimim_votes > congress_votes && aimim_votes > bjp_votes) {
+                bjp_result.innerHTML = "";
+                congress_result.innerHTML = "";
+                aimim_result.innerHTML = " AIMIM won the elections";
+                brs_result.innerHTML = "";
+            } else if (brs_votes > congress_votes && brs_votes > aimim_votes && brs_votes > bjp_votes) {
+                bjp_result.innerHTML = "";
+                congress_result.innerHTML = "";
+                aimim_result.innerHTML = "";
+                brs_result.innerHTML = " BRS won the elections";
+            }
+            else {
+                bjp_result.innerHTML = " NO Result";
+                congress_result.innerHTML = " NO Result";
+                aimim_result.innerHTML = " NO Result";
+                brs_result.innerHTML = " NO Result";
+            }
+            bjp_votes = 0;
+            congress_votes = 0;
+            aimim_votes = 0;
+            brs_votes = 0;
+        })
+    </script>
+</body>
+
+</html>
